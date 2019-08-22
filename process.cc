@@ -383,11 +383,19 @@ int main(int argc, char** argv)
     ana.cutflow.addCut("SR1SFOSFull", [&]() { return www.SR1SFOSFull(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
     ana.cutflow.addCut("SR2SFOSFull", [&]() { return www.SR2SFOSFull(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
 
+    ana.cutflow.addCut("SRSSee", [&]() { return www.SRSSee(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
+    ana.cutflow.addCut("SRSSem", [&]() { return www.SRSSem(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
+    ana.cutflow.addCut("SRSSmm", [&]() { return www.SRSSmm(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
+    ana.cutflow.addCut("SR0SFOS", [&]() { return www.SR0SFOS(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
+    ana.cutflow.addCut("SR1SFOS", [&]() { return www.SR1SFOS(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
+    ana.cutflow.addCut("SR2SFOS", [&]() { return www.SR2SFOS(); }, [&]() { return www.event_weight() * www.lepton_scale_factor() * www.btag_scale_factor() * www.trigger_scale_factor(); } );
+
     // Print cut structure
     ana.cutflow.printCuts();
 
     // Histogram utility object that is used to define the histograms
-    // ana.histograms.addHistogram("Mll", 180, 0, 250, [&]() { return 1/* set your variable here*/; } );
+    ana.histograms.addHistogram("nj", 7, 0, 7, [&]() { return www.nj(); } );
+    ana.histograms.addHistogram("nj30", 7, 0, 7, [&]() { return www.nj30(); } );
 
     // Book cutflows
     ana.cutflow.bookCutflows();
@@ -395,7 +403,7 @@ int main(int argc, char** argv)
     // Book Histograms
     // ana.cutflow.bookHistogramsForCutAndBelow(ana.histograms, "DiElChannel");
     // ana.cutflow.bookHistogramsForCutAndBelow(ana.histograms, "DiMuChannel");
-    // ana.cutflow.bookHistograms(ana.histograms); // if just want to book everywhere
+    ana.cutflow.bookHistograms(ana.histograms); // if just want to book everywhere
 
     // Looping input file
     while (ana.looper.nextEvent())
